@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-Project.Random.Questions-72FDBF0C-BF87-49D8-9CF5-F0AAA7112476")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Project.Random.Questions")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
