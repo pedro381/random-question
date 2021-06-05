@@ -9400,11 +9400,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dex\\Random.Questions\\Random.Questions\\Project.Random.Questions.csproj",
+      "projectUniqueName": "C:\\Users\\BSI99672\\Source\\Repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj",
       "projectName": "Project.Random.Questions",
-      "projectPath": "C:\\Dex\\Random.Questions\\Random.Questions\\Project.Random.Questions.csproj",
+      "projectPath": "C:\\Users\\BSI99672\\Source\\Repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj",
       "packagesPath": "C:\\Users\\BSI99672\\.nuget\\packages\\",
-      "outputPath": "C:\\Dex\\Random.Questions\\Random.Questions\\obj\\",
+      "outputPath": "C:\\Users\\BSI99672\\Source\\Repos\\random-question\\Random.Questions\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
