@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Project.Random.Questions.Models.Reply>
+
+@{
+    ViewData["Title"] = "Reply";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Reply</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdentityUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alternative.Question.Quiz.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alternative.Question.Quiz)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alternative.Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alternative)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alternative.IsCorrect)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdentityUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alternative.Question.Quiz.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alternative.Question.Quiz.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alternative.Question.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alternative.Description)
+            </td>
+            <td>
+                @if (item.Alternative.IsCorrect)
+                {
+                    <span class="badge badge-success badge-pill" style="float: right;">Correct</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger badge-pill" style="float: right;">Wrong</span>
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+}

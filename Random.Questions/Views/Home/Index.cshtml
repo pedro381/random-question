@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Project.Random.Questions.Models.Category>
+
+@{
+    ViewData["Title"] = "Home Page";
+    int count = 0;
+    List<TotalReply> replies = ViewBag.replies;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+<div id="accordion">
+    @foreach (var category in Model)
+    {
+        count++;
+        <div class="card">
+            <div class="card-header" id="heading@(count)">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse@(count)" aria-expanded="false" aria-controls="collapse@(count)">
+                        @(category.Name)
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapse@(count)" class="collapse hide" aria-labelledby="heading@(count)" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="list-group">
+                        @foreach (var quiz in category.Quizzes)
+                        {
+                            var reply = replies.First(x => x.IdQuiz == quiz.IdQuiz);
+                            <a type="button" class="list-group-item list-group-item-action" asp-action="Quiz" asp-route-id="@quiz.IdQuiz">
+                                @(quiz.Name)
+                                <span class="badge badge-primary badge-pill" style="float: right;"> @(reply.TotalReplies)/@(reply.TotalQuestions)</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
