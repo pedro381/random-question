@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BSI99672\\Source\\Repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj": {}
+    "C:\\Users\\BSI99672\\source\\repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj": {}
   },
   "projects": {
-    "C:\\Users\\BSI99672\\Source\\Repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj": {
+    "C:\\Users\\BSI99672\\source\\repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BSI99672\\Source\\Repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj",
+        "projectUniqueName": "C:\\Users\\BSI99672\\source\\repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj",
         "projectName": "Project.Random.Questions",
-        "projectPath": "C:\\Users\\BSI99672\\Source\\Repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj",
+        "projectPath": "C:\\Users\\BSI99672\\source\\repos\\random-question\\Random.Questions\\Project.Random.Questions.csproj",
         "packagesPath": "C:\\Users\\BSI99672\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BSI99672\\Source\\Repos\\random-question\\Random.Questions\\obj\\",
+        "outputPath": "C:\\Users\\BSI99672\\source\\repos\\random-question\\Random.Questions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -98,7 +98,7 @@
           "warn": true,
           "downloadDependencies": [
             {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "name": "Microsoft.NETCore.App.Host.linux-x64",
               "version": "[3.1.13, 3.1.13]"
             }
           ],
@@ -111,6 +111,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "linux-x64": {
+          "#import": []
         }
       }
     }
