@@ -21,7 +21,9 @@
     {
         count++;
         <div class="card">
-            <h5 class="card-header">Question @(count)</h5>
+            <h5 class="card-header">
+                Question @(count)
+            </h5>
             <div class="card-body">
                 <h5 class="card-title">@(question.Description)</h5>
                 <br />
@@ -59,8 +61,11 @@ else
     foreach (var question in Model.Questions)
     {
         count++;
-        <div class="card">
-            <h5 class="card-header">Question @(count)</h5>
+        <div class="card div-card-question div-card-question-@(count)" style='display: @(count == 1 ? "block" : "none");'>
+            <h5 class="card-header">
+                Question
+                <span class="badge badge-primary badge-pill" style="float: right;">@(count)/@(Model.Questions.Count)</span>
+            </h5>
             <div class="card-body">
                 <h5 class="card-title">@(question.Description)</h5>
                 <br />
@@ -80,15 +85,52 @@ else
                 </ul>
             </div>
         </div>
-        <br />
     }
-    <div class="form-group">
-        <input type="button" value="Submit" class="btn btn-primary" onclick="submitAlternatives()" />
+    <br />
+    <div class="form-group text-center">
+        <input id="Previous" type="button" value="< Previous" class="btn btn-dark" style="width: 110px;" onclick="submitPrevious()" />
+        <input id="Next" type="button" value="Next >" class="btn btn-primary" style="width: 110px;" onclick="submitNext()" />
+        <input id="Submit" type="button" value="Submit" class="btn btn-primary" style="width: 110px;" onclick="submitAlternatives()" />
     </div>
+    <div class="modal"></div>
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
+    @section Scripts {
+        <script>
         window.IdsQuestions = @Json.Serialize(Model.Questions.Select(x => x.IdQuestion));
+        window.countMax = @Json.Serialize(Model.Questions.Count);
+        window.count = 1;
+
+            function showHiddenButton() {
+            if (window.count < window.countMax) {
+                $('#Next').show();
+                $('#Submit').hide();
+            } else {
+                $('#Next').hide();
+                $('#Submit').show();
+            }
+            if (window.count > 1) {
+                $('#Previous').show();
+            } else {
+                $('#Previous').hide();
+            }
+        }
+            $(document).ready(function () {
+                showHiddenButton();
+        });
+
+        function submitPrevious() {
+            window.count--;
+            $('.div-card-question').hide();
+            $('.div-card-question-' + window.count).show();
+            showHiddenButton() ;
+        }
+
+        function submitNext() {
+            window.count++;
+            $('.div-card-question').hide();
+            $('.div-card-question-' + window.count).show();
+            showHiddenButton() ;
+        }
 
         function submitAlternatives() {
 
@@ -121,9 +163,11 @@ else
                             })
                     }
 
+                    $("body").addClass("loading");
                     $.post("@(Url.Action("New", "Replies"))",
                         data,
-                        function(resp) {
+                        function (resp) {
+                            $("body").removeClass("loading");
                             Swal.fire(
                                 'Submitted!',
                                 'Questionnaire sent.',
@@ -136,5 +180,28 @@ else
                 }
             });
         }
-    </script>
+        </script>
+    }
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 255, 255, 255, .8 ) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+
+        /* enquanto estiver carregando, o scroll da página estará desativado */
+        body.loading {
+            overflow: hidden;
+        }
+
+            /* a partir do momento em que o body estiver com a classe loading,  o modal aparecerá */
+            body.loading .modal {
+                display: block;
+            }
+    </style>
 }
