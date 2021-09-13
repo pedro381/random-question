@@ -16,6 +16,5 @@ namespace Project.Random.Questions.Models
         [ForeignKey("Alternative")]
         public int IdAlternative { get; set; }
         public Alternative Alternative { get; set; }
-        public int? IdQuestionNoReply { get; set; }
     }
 }

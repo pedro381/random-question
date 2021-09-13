@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Project.Random.Questions.Models.Alternative>
+
+@{
+    ViewData["Title"] = "Alternative";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Alternative</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCorrect)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsCorrect)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Question.Description)
+                </td>
+                <td style="float: right;">
+                    <a asp-action="Edit" asp-route-id="@item.IdAlternative">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdAlternative">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdAlternative">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+}

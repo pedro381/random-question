@@ -12,31 +12,26 @@ namespace Project.Random.Questions.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public QuestionsController(ApplicationDbContext context)
-        {
+        public QuestionsController(ApplicationDbContext context) {
             _context = context;
         }
 
         // GET: Questions
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var applicationDbContext = _context.Question.Include(q => q.Quiz);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Questions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Details(int? id) {
+            if(id == null) {
                 return NotFound();
             }
 
             var question = await _context.Question
                 .Include(q => q.Quiz)
                 .FirstOrDefaultAsync(m => m.IdQuestion == id);
-            if (question == null)
-            {
+            if(question == null) {
                 return NotFound();
             }
 
@@ -44,9 +39,12 @@ namespace Project.Random.Questions.Controllers
         }
 
         // GET: Questions/Create
-        public IActionResult Create()
-        {
-            ViewData["IdQuiz"] = new SelectList(_context.Quiz, "IdQuiz", "Name");
+        public IActionResult CreateAsync() {
+            var idQuizSelected =  _context.Quiz
+                .Select(m => m.IdQuiz)
+                .OrderByDescending(m => m)
+                .FirstOrDefault();
+            ViewData["IdQuiz"] = new SelectList(_context.Quiz, "IdQuiz", "Name", idQuizSelected);
             return View();
         }
 
@@ -55,10 +53,8 @@ namespace Project.Random.Questions.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdQuestion,Description,IdQuiz")] Question question)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("IdQuestion,Description,IdQuiz")] Question question) {
+            if(ModelState.IsValid) {
                 _context.Add(question);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -68,16 +64,13 @@ namespace Project.Random.Questions.Controllers
         }
 
         // GET: Questions/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Edit(int? id) {
+            if(id == null) {
                 return NotFound();
             }
 
             var question = await _context.Question.FindAsync(id);
-            if (question == null)
-            {
+            if(question == null) {
                 return NotFound();
             }
             ViewData["IdQuiz"] = new SelectList(_context.Quiz, "IdQuiz", "Name", question.IdQuiz);
@@ -89,28 +82,19 @@ namespace Project.Random.Questions.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdQuestion,Description,IdQuiz")] Question question)
-        {
-            if (id != question.IdQuestion)
-            {
+        public async Task<IActionResult> Edit(int id, [Bind("IdQuestion,Description,IdQuiz")] Question question) {
+            if(id != question.IdQuestion) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if(ModelState.IsValid) {
+                try {
                     _context.Update(question);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!QuestionExists(question.IdQuestion))
-                    {
+                } catch(DbUpdateConcurrencyException) {
+                    if(!QuestionExists(question.IdQuestion)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -121,18 +105,15 @@ namespace Project.Random.Questions.Controllers
         }
 
         // GET: Questions/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Delete(int? id) {
+            if(id == null) {
                 return NotFound();
             }
 
             var question = await _context.Question
                 .Include(q => q.Quiz)
                 .FirstOrDefaultAsync(m => m.IdQuestion == id);
-            if (question == null)
-            {
+            if(question == null) {
                 return NotFound();
             }
 
@@ -142,16 +123,14 @@ namespace Project.Random.Questions.Controllers
         // POST: Questions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
             var question = await _context.Question.FindAsync(id);
             _context.Question.Remove(question);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool QuestionExists(int id)
-        {
+        private bool QuestionExists(int id) {
             return _context.Question.Any(e => e.IdQuestion == id);
         }
     }

@@ -9,6 +9,7 @@ namespace Project.Random.Questions.Models
         [Key]
         public int IdAlternative { get; set; }
         [Description]
+        [MaxLength(1000)]
         public string Description { get; set; }
         [Display(Name = "Is Correct")]
         public bool IsCorrect { get; set; }

@@ -44,6 +44,7 @@ namespace Project.Random.Questions.Services
 
             using (SmtpClient smtp = new SmtpClient(EmailSettings.PrimaryDomain, EmailSettings.PrimaryPort))
             {
+                smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential(EmailSettings.UsernameEmail, EmailSettings.UsernamePassword);
                 smtp.EnableSsl = true;
                 await smtp.SendMailAsync(mail);

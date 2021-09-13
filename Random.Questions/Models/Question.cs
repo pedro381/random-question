@@ -10,6 +10,7 @@ namespace Project.Random.Questions.Models
         [Key]
         public int IdQuestion { get; set; }
         [Description]
+        [MaxLength(1000)]
         public string Description { get; set; }
         [ForeignKey("Quiz")]
         [Display(Name = "Quiz")]

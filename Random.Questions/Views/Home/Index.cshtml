@@ -9,9 +9,11 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
+<div class="form-group">
+    <input placeholder="Search" class="search form-control" type="text">
+</div>
 <div id="accordion">
-    @foreach (var category in Model)
-    {
+    @foreach(var category in Model) {
         count++;
         <div class="card">
             <div class="card-header" id="heading@(count)">
@@ -25,8 +27,7 @@
             <div id="collapse@(count)" class="collapse hide" aria-labelledby="heading@(count)" data-parent="#accordion">
                 <div class="card-body">
                     <div class="list-group">
-                        @foreach (var quiz in category.Quizzes)
-                        {
+                        @foreach(var quiz in category.Quizzes) {
                             var reply = replies.First(x => x.IdQuiz == quiz.IdQuiz);
                             <a type="button" class="list-group-item list-group-item-action" asp-action="Quiz" asp-route-id="@quiz.IdQuiz">
                                 @(quiz.Name)
@@ -39,3 +40,20 @@
         </div>
     }
 </div>
+@section Scripts {
+<script>
+         $(window).on('load', function () {
+             $('.search').keyup(function() {
+                 $('h5 .btn.btn-link').each(function( index ) {
+                     var search = $('.search').val().toLowerCase();
+                     if(search == "" || $(this).text().toLowerCase().indexOf(search) >= 0 ){
+                         $(this).closest( ".card" ).show(500);
+                     }
+                     else{
+                         $(this).closest( ".card" ).hide(500);
+                     }
+                 });
+             });
+         });
+</script>
+}

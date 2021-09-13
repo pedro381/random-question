@@ -9,53 +9,46 @@
 
 <h2>
     @Model.Name
-    @if (replies.Any())
-    {
+    @if(replies.Any()) {
         <span class="badge badge-primary badge-pill" style="float: right;">@(replies.Count(x=>x.Alternative.IsCorrect))/@(Model.Questions.Count())</span>
     }
 </h2>
 <br />
-@if (replies.Any())
-{
-    foreach (var question in Model.Questions)
-    {
-        count++;
-        <div class="card">
-            <h5 class="card-header">
-                Question @(count)
-            </h5>
-            <div class="card-body">
-                <h5 class="card-title">@(question.Description)</h5>
-                <br />
-                <ul class="list-group list-group-flush">
+@if(replies.Any()) {
+    foreach(var question in Model.Questions) {
+        if(!question.Alternatives.Any(x => replies.Any(y => y.IdAlternative == x.IdAlternative && y.Alternative.IsCorrect))) {
+            count++;
+            <div class="card">
+                <h5 class="card-header">Question @(count)</h5>
+                <div class="card-body">
+                    <h5 class="card-title">@(question.Description)</h5>
+                    <br />
+                    <ul class="list-group list-group-flush">
 
-                    @foreach (var alternative in question.Alternatives)
-                    {
-                        var reply = replies.FirstOrDefault(x => alternative.IdAlternative == x.IdAlternative);
+                        @foreach(var alternative in question.Alternatives) {
+                            var reply = replies.FirstOrDefault(x => alternative.IdAlternative == x.IdAlternative);
 
-                        <li class="list-group-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="@(alternative.IdQuestion)" id="Id@(alternative.IdAlternative)" value="@(alternative.IdAlternative)" disabled @(reply != null ? "checked" : "")>
-                                <label class="form-check-label" for="Id@(alternative.IdAlternative)">
-                                    @(alternative.Description)
-                                </label>
-                                @if (alternative.IsCorrect)
-                                {
-                                    <span class="badge badge-success badge-pill" style="float: right;">Correct</span>
-                                }
-                                else if (reply != null)
-                                {
-                                    <span class="badge badge-danger badge-pill" style="float: right;">Wrong</span>
-                                }
-                            </div>
-                        </li>
-                    }
-                </ul>
+                            <li class="list-group-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="@(alternative.IdQuestion)" id="Id@(alternative.IdAlternative)" value="@(alternative.IdAlternative)" disabled @(reply != null ? "checked" : "")>
+                                    <label class="form-check-label" for="Id@(alternative.IdAlternative)">
+                                        @(alternative.Description)
+                                    </label>
+                                    @if(alternative.IsCorrect) {
+                                        <span class="badge badge-success badge-pill" style="float: right;">Correct</span>
+                                    } else if(reply != null) {
+                                        <span class="badge badge-danger badge-pill" style="float: right;">Wrong</span>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
-        <br />
+            <br />
+        }
     }
-}
+} 
 else
 {
     foreach (var question in Model.Questions)

@@ -10,7 +10,7 @@ namespace Project.Random.Questions.Models
 
         public bool IsAdmin(string email)
         {
-            return EmailsAdmins.Any(x => x == email); 
+            return EmailsAdmins.Any(x => x == email);
         }
     }
 }
